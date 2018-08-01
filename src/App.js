@@ -6,15 +6,34 @@ import React, { Fragment } from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import { MuiThemeProvider, createMuiTheme, withTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
+
 import RootControllerView from './comps/RootControllerView.comp'
+
+
+const theme = createMuiTheme({
+	palette: {
+    primary: purple,
+    secondary: green,
+  },
+  status: {
+    danger: 'orange',
+  },
+});
+
 
 function App() {
   return (
     	<Fragment>
     		<CssBaseline /> 
-    		<RootControllerView /> 
+    		<MuiThemeProvider theme={theme}>
+    			<RootControllerView /> 
+    		</MuiThemeProvider>
     	</Fragment>
   	);
 }
 
-export default App;
+//export default App;
+export default withTheme()(App);
