@@ -1,13 +1,20 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+//
+
+import React, { Fragment } from 'react';
+//import logo from './logo.svg';
 //import './App.css';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import RootControllerView from './comps/RootControllerView.comp'
 
-class App extends Component {
-  render() {
-    return ( <RootControllerView /> );
-  }
+function App() {
+  return (
+    	<Fragment>
+    		<CssBaseline /> 
+    		<RootControllerView /> 
+    	</Fragment>
+  	);
 }
 
 export default App;
