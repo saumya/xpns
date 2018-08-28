@@ -1,6 +1,9 @@
 ## Xpns
 
- The expense tracking app.
+The expense tracking app.
+
+version - 0.3.0 - Gitlab
+version - 0.4.0
 
 
 ### PWA and Settings

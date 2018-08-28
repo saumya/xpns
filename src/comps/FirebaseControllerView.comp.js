@@ -26,7 +26,9 @@
  			)
  	}
  	componentDidMount(){
+    console.group('FirebaseControllerView : componentDidMount :')
     console.log('FirebaseControllerView : componentDidMount :')
+    console.groupEnd()
     // initialise Firebase
     var myApp = firebase.initializeApp(FirebaseConfig.getThisAppConfig().firebase,'Xpns-4.0.0');
     console.log('App Name',myApp.name);

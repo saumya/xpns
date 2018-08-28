@@ -6,12 +6,12 @@
  * ref : 
  */
 
-import React, { Component, Fragment } from 'react'
+	import React, { Component, Fragment } from 'react'
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-//import Button from '@material-ui/core/Button';
+	import AppBar from '@material-ui/core/AppBar';
+	import Toolbar from '@material-ui/core/Toolbar';
+	import Typography from '@material-ui/core/Typography';
+	//import Button from '@material-ui/core/Button';
 	import IconButton from '@material-ui/core/IconButton';
 	import Drawer from '@material-ui/core/Drawer';
 
@@ -20,6 +20,10 @@ import Typography from '@material-ui/core/Typography';
 	import Menu from '@material-ui/core/Menu';
 	import MenuItem from '@material-ui/core/MenuItem';
 	import MenuList from '@material-ui/core/MenuList';
+
+	import ListItem from '@material-ui/core/ListItem';
+	import ListItemIcon from '@material-ui/core/ListItemIcon';
+	import ListItemText from '@material-ui/core/ListItemText';
 
 	import MenuIcon from '@material-ui/icons/Menu';
 
@@ -44,13 +48,68 @@ import Typography from '@material-ui/core/Typography';
  	constructor(props){
 		super(props)
 		this.state =  {
-			isSideMenuOpen:false,
+			isError:false,
+                    errorMessage:'',
+                    shouldShowPopUpMessage:false,
+                    sUIPopupMessage:'',
+                    isFirebaseInitDone: false,
+                    isSideMenuOpen: false, 
+                    intSelectedMenu:0, 
+                    isLoggedIn:false, 
+                    shouldWait:false,
+                    isAutoLoginOnRestartSuccess:false, 
+                    appUserObj:{},
+                    allDataSnapshot: {
+                      categories:{},
+                      persons:{},
+                      earnings: {},
+                      spendings: {},
+                    },
+                    totalEarnings:0,
+                    totalSpending:0,
+                    viewObj: {
+                      newViewName: MenuNames.getAllNames().generalMenu.HOME,
+                    }, 
 		}
 		this.sNames = MenuNames.getAllNames().generalMenu;
-    this.leftMenuNames = MenuNames.getAllNames().leftMenu;
+		this.leftMenuNames = MenuNames.getAllNames().leftMenu;
+		//
+		this.onLoginSuccess = this.onLoginSuccess.bind(this);
+		this.onAuthFail = this.onAuthFail.bind(this);
+		
+		this.firebaseApp = null;
+		this.loggedInUser = null;
+		// side menu
+    this.onSideMenuItemClick = this.onSideMenuItemClick.bind(this);
+    //
+    this.addNewCategory = this.addNewCategory.bind(this);
+    this.addNewPaidTo = this.addNewPaidTo.bind(this);
  	}
  	render(){
-		 console.log('isSideMenuOpen', this.state.isSideMenuOpen)
+		 
+		console.group('render')
+		console.log('isSideMenuOpen', this.state.isSideMenuOpen)
+		console.log('this.state.isLoggedIn',this.state.isLoggedIn)
+		console.groupEnd()
+
+		var displayName = '';
+    var _menuCompFirstMenu = null;
+    if(this.state.isLoggedIn){
+      displayName = this.loggedInUser.displayName;
+			_menuCompFirstMenu = 	(  
+															<ListItem> 
+																<ListItemText primary={displayName} /> 
+																<MenuItem data-name={this.leftMenuNames.LOGIN} onClick={this.onSideMenuItemClick}> Export Data </MenuItem>
+															</ListItem> 
+														)
+    }else{
+			_menuCompFirstMenu = ( 
+															<div>
+																<MenuItem data-name={this.leftMenuNames.LOGIN} onClick={this.onSideMenuItemClick}> Login </MenuItem>
+															</div>
+														)
+    }
+
  		return(
  				<Fragment>
 					<FirebaseControllerView />
@@ -71,21 +130,24 @@ import Typography from '@material-ui/core/Typography';
             anchor="left">
 						
 						<MenuList>
-						<div style={{ marginLeft:'0.6em', marginTop:'0.6em', fontSize:'0.6em'}}>Everyday</div>
-                <MenuItem data-name={this.leftMenuNames.ADDRECEIVES} onClick={this.onSideMenuItemClick}> <ArrowForwardIcon /> Add Income </MenuItem>
-                <MenuItem data-name={this.leftMenuNames.ADDPAYMENTS} onClick={this.onSideMenuItemClick}> <ArrowBackIcon /> Add Expense </MenuItem>
-                <Divider/>
-                <div style={{ marginLeft:'0.6em', marginTop:'0.6em', fontSize:'0.6em'}}>View</div>
-                <MenuItem data-name={this.leftMenuNames.VIEWINCOMES} onClick={this.onSideMenuItemClick}> <VisibilityIcon /> View Income </MenuItem>
-                <MenuItem data-name={this.leftMenuNames.FILTERINCOMES} onClick={this.onSideMenuItemClick}> <ViewListIcon /> Filter Income </MenuItem>
-                <MenuItem data-name={this.leftMenuNames.VIEWPAYMENTS} onClick={this.onSideMenuItemClick}> <VisibilityIcon /> View Expense </MenuItem>
-                <MenuItem data-name={this.leftMenuNames.FILTERPAYMENTS} onClick={this.onSideMenuItemClick}> <ViewListIcon /> Filter Expense </MenuItem>
-                <Divider/>
-                <div style={{ marginLeft:'0.6em', marginTop:'0.6em', fontSize:'0.6em'}}>Settings</div>
-                <MenuItem data-name={this.leftMenuNames.CATEGORY} onClick={this.onSideMenuItemClick}> <AssignmentIcon /> Category </MenuItem>
-                <MenuItem data-name={this.leftMenuNames.PAIDTO} onClick={this.onSideMenuItemClick}> <AssignmentIndIcon /> Paid-To / Received-From </MenuItem>
-                <Divider/>
-                <MenuItem data-name={this.leftMenuNames.ABOUT} onClick={this.onSideMenuItemClick}> <StarBorderIcon /> About </MenuItem>
+							<div style={{ marginLeft:'0.6em', marginTop:'0.6em', fontSize:'0.6em'}}>Everyday</div>
+							<MenuItem data-name={this.leftMenuNames.ADDRECEIVES} onClick={this.onSideMenuItemClick}> <ArrowForwardIcon /> Add Income </MenuItem>
+							<MenuItem data-name={this.leftMenuNames.ADDPAYMENTS} onClick={this.onSideMenuItemClick}> <ArrowBackIcon /> Add Expense </MenuItem>
+							<Divider/>
+							<div style={{ marginLeft:'0.6em', marginTop:'0.6em', fontSize:'0.6em'}}>View</div>
+							<MenuItem data-name={this.leftMenuNames.VIEWINCOMES} onClick={this.onSideMenuItemClick}> <VisibilityIcon /> View Income </MenuItem>
+							<MenuItem data-name={this.leftMenuNames.FILTERINCOMES} onClick={this.onSideMenuItemClick}> <ViewListIcon /> Filter Income </MenuItem>
+							<MenuItem data-name={this.leftMenuNames.VIEWPAYMENTS} onClick={this.onSideMenuItemClick}> <VisibilityIcon /> View Expense </MenuItem>
+							<MenuItem data-name={this.leftMenuNames.FILTERPAYMENTS} onClick={this.onSideMenuItemClick}> <ViewListIcon /> Filter Expense </MenuItem>
+							<Divider/>
+							<div style={{ marginLeft:'0.6em', marginTop:'0.6em', fontSize:'0.6em'}}>Settings</div>
+							<MenuItem data-name={this.leftMenuNames.CATEGORY} onClick={this.onSideMenuItemClick}> <AssignmentIcon /> Category </MenuItem>
+							<MenuItem data-name={this.leftMenuNames.PAIDTO} onClick={this.onSideMenuItemClick}> <AssignmentIndIcon /> Paid-To / Received-From </MenuItem>
+							<Divider/>
+							<MenuItem data-name={this.leftMenuNames.ABOUT} onClick={this.onSideMenuItemClick}> <StarBorderIcon /> About </MenuItem>
+							<Divider/>
+							<div style={{ marginLeft:'0.6em', marginTop:'0.6em', fontSize:'0.6em'}}>Once in a while</div>
+							{_menuCompFirstMenu}
 						</MenuList>
 
 					</Drawer>
@@ -96,9 +158,28 @@ import Typography from '@material-ui/core/Typography';
 	componentWillUnmount(){}
 	// ========= Event handlers
 	handleLeftMenu = event => {
+		console.log('handleLeftMenu :')
 		this.setState({isSideMenuOpen: !this.state.isSideMenuOpen});
 	}
-	onSideMenuItemClick = event => {}
+	onSideMenuItemClick = event => {
+		console.log('onSideMenuItemClick :')
+	}
+
+	// callbacks
+	onLoginSuccess = (googleUserAccessToken,firebaseUser,googleUserId) => {
+		console.log('onLoginSuccess :')
+		//
+	}
+	onAuthFail = errorMsg => {
+    console.log('onAuthFail',errorMsg)
+    //this.showMessage(errorMsg)
+	}
+	addNewCategory = catName => {
+		console.log('AppComp : addNewCategory :',catName)
+	}
+	addNewPaidTo = ptName => {
+		console.log('AppComp : addNewPaidTo :',ptName);
+	}
 
  }// End Class
 
