@@ -69,7 +69,8 @@
                     totalSpending:0,
                     viewObj: {
                       newViewName: MenuNames.getAllNames().generalMenu.HOME,
-                    }, 
+										}, 
+										newViewName: MenuNames.getAllNames().generalMenu.HOME,
 		}
 		this.sNames = MenuNames.getAllNames().generalMenu;
 		this.leftMenuNames = MenuNames.getAllNames().leftMenu;
@@ -90,6 +91,7 @@
 		console.group('render')
 		console.log('isSideMenuOpen', this.state.isSideMenuOpen)
 		console.log('this.state.isLoggedIn',this.state.isLoggedIn)
+		console.log('this.state.newViewName',this.state.newViewName)
 		console.groupEnd()
 
 		var displayName = '';
@@ -125,6 +127,15 @@
         	</Toolbar>
 
 					</AppBar>
+
+					<div style={{marginLeft: 0, marginTop: 50}}>
+					{ ( this.state.isLoggedIn ? null : <div>Login to continue.</div> ) }
+					</div>
+
+					
+
+
+
 					<Drawer open={this.state.isSideMenuOpen}
             onClose={(isSideMenuOpen) => this.setState({isSideMenuOpen:false})} 
             anchor="left">
@@ -163,6 +174,19 @@
 	}
 	onSideMenuItemClick = event => {
 		console.log('onSideMenuItemClick :')
+		var el = event.target;
+    var menuName = el.dataset['name'];
+    console.log('onSideMenuItemClick : MenuName=',menuName);
+
+		var that = this;
+		
+		//
+		this.setState({ 
+			newViewName : menuName, 
+			isError : false, 
+			errorMessage : '', 
+			isSideMenuOpen : false
+		});
 	}
 
 	// callbacks
