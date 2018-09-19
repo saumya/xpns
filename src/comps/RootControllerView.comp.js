@@ -44,6 +44,7 @@
 	import FirebaseControllerView from './FirebaseControllerView.comp'
 
 	import AuthUIComp from './AuthUIComp.react'
+	import AboutAppUIComp from './AboutAppUIComp.react'
 
 
  class RootControllerView extends Component {
@@ -233,6 +234,12 @@
 	                                errorCallback={this.onAuthFail} /> 
 	                  </div>
 			break;
+			case this.leftMenuNames.ABOUT :
+				newComp = <AboutAppUIComp>
+                    <div> {getMessages().APP_VERSION} &#10084; your &#2855;&#2856;.</div>
+                    <div>It keeps a record of things, which you do not but want to.</div>
+                  </AboutAppUIComp>
+      break;
 			default :
 				newComp = <div>{this.state.newViewName}</div>
 			break;
