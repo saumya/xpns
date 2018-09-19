@@ -23,12 +23,12 @@ class AuthUIComp extends Component {
 	}
 	render(){
 		var that = this;
-		console.log('render : this.state',this.state);
+		//console.log('render : this.state',this.state);
 		return(
         <Fragment>
           <center>
         	<div style={{ marginTop:'4em', }}>
-            <Button variant="contained" color="primary" style={{ paddingTop:'1em', margin:'1em' }} onClick={this.onLoginWithGoogle}> Login With Google </Button> 
+            { ( this.state.isLoggedIn ? (<img src={this.state.googleUser.photoURL} />) : (<Button variant="contained" color="primary" style={{ paddingTop:'1em', margin:'1em' }} onClick={this.onLoginWithGoogle}> Login With Google </Button>) ) } 
           </div>
           </center>
         </Fragment>

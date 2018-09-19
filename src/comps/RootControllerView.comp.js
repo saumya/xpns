@@ -52,28 +52,28 @@
 		super(props)
 		this.state =  {
 			isError:false,
-                    errorMessage:'',
-                    shouldShowPopUpMessage:false,
-                    sUIPopupMessage:'',
-                    isFirebaseInitDone: false,
-                    isSideMenuOpen: false, 
-                    intSelectedMenu:0, 
-                    isLoggedIn:false, 
-                    shouldWait:false,
-                    isAutoLoginOnRestartSuccess:false, 
-                    appUserObj:{},
-                    allDataSnapshot: {
-                      categories:{},
-                      persons:{},
-                      earnings: {},
-                      spendings: {},
-                    },
-                    totalEarnings:0,
-                    totalSpending:0,
-                    viewObj: {
-                      newViewName: MenuNames.getAllNames().generalMenu.HOME,
-										}, 
-										newViewName: MenuNames.getAllNames().generalMenu.HOME,
+	    errorMessage:'',
+	    shouldShowPopUpMessage:false,
+	    sUIPopupMessage:'',
+	    isFirebaseInitDone: false,
+	    isSideMenuOpen: false, 
+	    intSelectedMenu:0, 
+	    isLoggedIn:false, 
+	    shouldWait:false,
+	    isAutoLoginOnRestartSuccess:false, 
+	    appUserObj:{},
+	    allDataSnapshot: {
+	      categories:{},
+	      persons:{},
+	      earnings: {},
+	      spendings: {},
+	    },
+	    totalEarnings:0,
+	    totalSpending:0,
+	    viewObj: {
+	      newViewName: MenuNames.getAllNames().generalMenu.HOME,
+			}, 
+			newViewName: MenuNames.getAllNames().generalMenu.HOME,
 		}
 		this.sNames = MenuNames.getAllNames().generalMenu;
 		this.leftMenuNames = MenuNames.getAllNames().leftMenu;
@@ -93,9 +93,15 @@
  	render(){
 		 
 		console.group('render')
+		
 		console.log('isSideMenuOpen', this.state.isSideMenuOpen)
 		console.log('this.state.isLoggedIn',this.state.isLoggedIn)
 		console.log('this.state.newViewName',this.state.newViewName)
+
+		console.log('this.state.appUserObj.displayName',this.state.appUserObj.displayName)
+		console.log('this.state.appUserObj.email',this.state.appUserObj.email)
+		console.log('this.state.appUserObj.photoURL',this.state.appUserObj.photoURL)
+
 		console.groupEnd()
 
 		var displayName = '';
@@ -197,7 +203,17 @@
 	// callbacks
 	onLoginSuccess = (googleUserAccessToken,firebaseUser,googleUserId) => {
 		console.log('onLoginSuccess :')
-		//
+		console.log(googleUserAccessToken,firebaseUser,googleUserId)
+		console.log('==========================')
+		console.log(firebaseUser.displayName)
+		console.log(firebaseUser.email)
+		console.log(firebaseUser.photoURL)
+		var newUserObj = { 
+											displayName: firebaseUser.displayName,
+											email: firebaseUser.email,
+											photoURL: firebaseUser.photoURL 
+										}
+		this.setState({appUserObj:newUserObj})
 	}
 	onAuthFail = errorMsg => {
     console.log('onAuthFail',errorMsg)
