@@ -26,9 +26,11 @@ class AuthUIComp extends Component {
 		console.log('render : this.state',this.state);
 		return(
         <Fragment>
+          <center>
         	<div style={{ marginTop:'4em', }}>
             <Button variant="contained" color="primary" style={{ paddingTop:'1em', margin:'1em' }} onClick={this.onLoginWithGoogle}> Login With Google </Button> 
           </div>
+          </center>
         </Fragment>
 			)
 	}// END render
