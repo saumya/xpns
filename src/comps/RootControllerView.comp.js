@@ -77,6 +77,7 @@
 		this.sNames = MenuNames.getAllNames().generalMenu;
 		this.leftMenuNames = MenuNames.getAllNames().leftMenu;
 		//
+		this.onFirebaseInitDone = this.onFirebaseInitDone.bind(this);
 		this.onLoginSuccess = this.onLoginSuccess.bind(this);
 		this.onAuthFail = this.onAuthFail.bind(this);
 		
@@ -116,7 +117,7 @@
 
  		return(
  				<Fragment>
-					<FirebaseControllerView />
+					<FirebaseControllerView onFirebaseInitDone={this.onFirebaseInitDone} />
 					<AppBar title="XpNS" position="fixed" color="primary">
 
 					<Toolbar>
@@ -207,10 +208,18 @@
 	addNewPaidTo = ptName => {
 		console.log('AppComp : addNewPaidTo :',ptName);
 	}
+	onFirebaseInitDone(firebaseAppRef){
+		this.firebaseApp = firebaseAppRef;
+	}
 
 	//getCompAndRender
 	getCompAndRender = () => {
 		console.log('AppComp : getCompAndRender : ',this.state.newViewName);
+		// this.firebaseApp === null, firebase is not initialized
+		if(this.firebaseApp){
+			console.log('AppComp : getCompAndRender : this.firebaseApp',this.firebaseApp.name);
+		}
+
 		var newComp = null;
 		switch(this.state.newViewName){
 			case this.leftMenuNames.LOGIN :

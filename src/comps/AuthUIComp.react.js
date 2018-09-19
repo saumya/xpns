@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from 'react'
 
-import AppBar from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 
 
 
@@ -23,14 +23,18 @@ class AuthUIComp extends Component {
 		var that = this;
 		console.log('render : this.state',this.state);
 		return(
-        <div>
-        	AuthUIComp
-        </div>
+        <Fragment>
+        	<div style={{ marginTop:'4em', }}>
+            <Button variant="contained" color="primary" style={{ paddingTop:'1em', margin:'1em' }} onClick={this.onLoginWithGoogle}> Login With Google </Button> 
+          </div>
+        </Fragment>
 			)
 	}// END render
 
 	onLoginWithGoogle(event){
-		console.log('onLoginWithGoogle')
+		console.log('AuthUIComp:onLoginWithGoogle');
+		var that = this;
+		var firebaseRef = this.props.firebaseRef;// 'this' refers to the class because of the 'bind()' we did in the 'constructor'
 	}
 
 }// END Class

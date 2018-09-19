@@ -36,6 +36,8 @@
     //console.log('Storage',myApp.storage()); //firebase.storage()
     this.firebaseApp = myApp;
     var that = this
+
+    this.props.onFirebaseInitDone(myApp)
    }
  	componentWillUnmount(){
     console.log('FirebaseControllerView : componentWillUnmount :')
