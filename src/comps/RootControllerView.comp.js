@@ -43,6 +43,8 @@
 
 	import FirebaseControllerView from './FirebaseControllerView.comp'
 
+	import AuthUIComp from './AuthUIComp.react'
+
 
  class RootControllerView extends Component {
  	constructor(props){
@@ -133,6 +135,7 @@
 					</div>
 
 					
+					{ this.getCompAndRender() }
 
 
 
@@ -204,6 +207,30 @@
 	addNewPaidTo = ptName => {
 		console.log('AppComp : addNewPaidTo :',ptName);
 	}
+
+	//getCompAndRender
+	getCompAndRender = () => {
+		console.log('AppComp : getCompAndRender : ',this.state.newViewName);
+		var newComp = null;
+		switch(this.state.newViewName){
+			case this.leftMenuNames.LOGIN :
+				newComp = <div> 
+	                    {( this.state.isLoggedIn ? 
+	                        null :
+	                        <div style={{ marginTop:'8em', marginLeft:'4em', marginRight:'4em' }}>Without login, I can not know "who are you?", how can I track your expense!</div> 
+	                      )}
+	                    <AuthUIComp firebaseRef={this.firebaseApp} 
+	                                loginSuccessCallback={this.onLoginSuccess} 
+	                                errorCallback={this.onAuthFail} /> 
+	                  </div>
+			break;
+			default :
+				newComp = <div>{this.state.newViewName}</div>
+			break;
+		}
+		return newComp;
+	}
+	// END getCompAndRender
 
  }// End Class
 
