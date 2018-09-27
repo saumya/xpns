@@ -107,12 +107,12 @@
 		var displayName = '';
     var _menuCompFirstMenu = null;
     if(this.state.isLoggedIn){
-      displayName = this.loggedInUser.displayName;
+      displayName = this.state.appUserObj.displayName;
 			_menuCompFirstMenu = 	(  
-															<ListItem> 
-																<ListItemText primary={displayName} /> 
-																<MenuItem data-name={this.leftMenuNames.LOGIN} onClick={this.onSideMenuItemClick}> Export Data </MenuItem>
-															</ListItem> 
+															<div> 
+																<MenuItem data-name={this.leftMenuNames.PROFILE} onClick={this.onSideMenuItemClick}> {displayName} </MenuItem>
+																<MenuItem data-name={this.leftMenuNames.EXPORT} onClick={this.onSideMenuItemClick}> Export Data </MenuItem>
+															</div> 
 														)
     }else{
 			_menuCompFirstMenu = ( 
@@ -202,18 +202,23 @@
 
 	// callbacks
 	onLoginSuccess = (googleUserAccessToken,firebaseUser,googleUserId) => {
+		
+		console.group('onLoginSuccess :')
 		console.log('onLoginSuccess :')
 		console.log(googleUserAccessToken,firebaseUser,googleUserId)
 		console.log('==========================')
 		console.log(firebaseUser.displayName)
 		console.log(firebaseUser.email)
 		console.log(firebaseUser.photoURL)
+		console.groupEnd()
+
+
 		var newUserObj = { 
 											displayName: firebaseUser.displayName,
 											email: firebaseUser.email,
 											photoURL: firebaseUser.photoURL 
 										}
-		this.setState({appUserObj:newUserObj})
+		this.setState({isLoggedIn:true, appUserObj:newUserObj})
 	}
 	onAuthFail = errorMsg => {
     console.log('onAuthFail',errorMsg)

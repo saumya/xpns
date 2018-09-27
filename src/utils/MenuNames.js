@@ -22,6 +22,8 @@ class MenuNames {
         },
         leftMenu:
           {
+            PROFILE: "PROFILE",
+            EXPORT: "EXPORT",
             LOGIN: "LOGIN",
             LOGOUT: "LOGOUT",
             CATEGORY: "CATEGORY",
