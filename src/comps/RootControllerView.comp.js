@@ -40,11 +40,25 @@
 	import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 
 	import MenuNames,{ getMessages } from '../utils/MenuNames'
+	import FirebaseUtil from '../utils/FirebaseUtil.util'
 
 	import FirebaseControllerView from './FirebaseControllerView.comp'
 
 	import AuthUIComp from './AuthUIComp.react'
 	import AboutAppUIComp from './AboutAppUIComp.react'
+
+	import UICompGivePayment from './UICompGivePayment.react'
+	import UIReceivePayment from './UIReceivePayment.react'
+/*
+	import UIPaidTo from './UIPaidTo.component'
+	import UICategory from './UICategory.component'
+	import UIViewPayments from './UIViewPayments.component'
+	import UIFilterPayments from './UIFilterPayments.component'
+	import UIFilterIncomes from './UIFilterIncomes.component'
+	import MessageInfo from './MessageInfo.component'
+	import UIPopupMessage from './UIPopupMessage.react'
+*/
+
 
 
  class RootControllerView extends Component {
@@ -101,6 +115,11 @@
 		console.log('this.state.appUserObj.displayName',this.state.appUserObj.displayName)
 		console.log('this.state.appUserObj.email',this.state.appUserObj.email)
 		console.log('this.state.appUserObj.photoURL',this.state.appUserObj.photoURL)
+		
+		console.log('======== snapshot ========')
+		console.log('this.state.allDataSnapshot',this.state.allDataSnapshot)
+		console.log('this.state.totalEarnings',this.state.totalEarnings)
+		console.log('======== / snapshot ========')
 
 		console.groupEnd()
 
@@ -211,14 +230,98 @@
 		console.log(firebaseUser.email)
 		console.log(firebaseUser.photoURL)
 		console.groupEnd()
+		// getting the data
+		this.loggedInUser = firebaseUser;
+    const firebaseUserDB = FirebaseUtil.getFirebaseAppData(this.firebaseApp,googleUserId);
+    
+    //console.log(firebaseUserDB)
+    var that = this;
 
+    firebaseUserDB.dbRefPaid.db.on('value', snapshot => {
+    	console.log('AppComp : Paid : DB Change');
+    	//that.setState( {isError:false,errorMessage:''} );
+    	if(snapshot.val()===null){
+    		//that.setState( {isError:true,errorMessage:'First Create some Category and PaidTo.'} );
+    	}else{
+    		var categories = snapshot.val().projects
+        var persons = snapshot.val().persons
+        var spendings = snapshot.val().spendings
+        var earnings = snapshot.val().earnings
+    	}
 
+    	var totalSpending = 0;
+      var totalEarnings = 0;
+      // spendings
+      for (const key in spendings) {
+        if (spendings.hasOwnProperty(key)) { 
+          const element = spendings[key] 
+          //console.log(key,':',element);
+          element.key = key;
+          totalSpending += Number(element.ammount)
+        }
+      }
+      
+      // earnings : adding 'key' in each object
+      for (const key2 in earnings) {
+        if (earnings.hasOwnProperty(key2)) { 
+          const element2 = earnings[key2] 
+          //console.log(key2,':',element2);
+          element2.key = key2;
+          totalEarnings += Number(element2.ammount)
+        }
+      }
+
+      FirebaseUtil.addKeyToEachElement(categories)
+      FirebaseUtil.addKeyToEachElement(persons)
+
+      console.log('==================')
+      console.log('==================')
+
+      this.setState({ 
+      								allDataSnapshot:
+	      								{ 
+	                        categories : categories,
+	                        persons : persons,
+	                        earnings : earnings,
+	                        spendings : spendings
+	                      },
+                      totalEarnings:totalEarnings,
+                      totalSpending:totalSpending 
+                    });
+      return false;
+    })// END firebaseUserDB.dbRefPaid.db.on()
+
+    // ================= Utility ==================================
+    firebaseUserDB.dbRefPaid.db.on('child_added', function(data) {
+      console.log('AppComp : Paid : child_added : ');
+    })
+    // received
+    firebaseUserDB.dbRefReceived.db.on('value', snapshot => {
+      console.log('AppComp : Received : DB Change');
+      //console.log('snapshot',snapshot.val());
+      //console.log('this.state',this.state);
+      console.group('Received');
+      console.log('TODO: work on receiving data flow');
+      console.log('snapshot',snapshot.val());
+      console.groupEnd();
+      //debugger;
+      return false;
+    });
+    firebaseUserDB.dbRefReceived.db.on('child_added',function(snapshot){
+      console.log('AppComp : Received : child_added : ');
+    });
+    // ================= /Utility ==================================
+
+    
+		//
 		var newUserObj = { 
 											displayName: firebaseUser.displayName,
 											email: firebaseUser.email,
 											photoURL: firebaseUser.photoURL 
 										}
-		this.setState({isLoggedIn:true, appUserObj:newUserObj})
+		//
+		this.setState({isLoggedIn:true, appUserObj:newUserObj,})
+		
 	}
 	onAuthFail = errorMsg => {
     console.log('onAuthFail',errorMsg)
@@ -244,6 +347,7 @@
 
 		var newComp = null;
 		switch(this.state.newViewName){
+			
 			case this.leftMenuNames.LOGIN :
 				newComp = <div> 
 	                    {( this.state.isLoggedIn ? 
@@ -261,6 +365,19 @@
                     <div>It keeps a record of things, which you do not but want to.</div>
                   </AboutAppUIComp>
       break;
+
+      case this.leftMenuNames.ADDPAYMENTS:
+				newComp = <UICompGivePayment categories={this.state.allDataSnapshot.categories} 
+                                      paidtos={this.state.allDataSnapshot.persons} 
+                                      onAddPayment={this.onAddPayment} />
+			break;
+			
+			case this.leftMenuNames.ADDRECEIVES:
+				newComp = <UIReceivePayment categories={this.state.allDataSnapshot.categories} 
+                                      paidtos={this.state.allDataSnapshot.persons}
+                                      addIncome={this.onAddIncome} />
+			break;
+
 			default :
 				newComp = <div>{this.state.newViewName}</div>
 			break;
