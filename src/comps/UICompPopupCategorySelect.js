@@ -47,22 +47,23 @@ class UICompPopupCategorySelect extends Component {
   }
   render(){
     //console.log('UICompPopupCategorySelect : render : ');
+    //console.log('UICompPopupCategorySelect : render : this.props.shouldOpen',this.props.shouldOpen);
     //console.log('selected id',this.state.value);
     var allCategories = this.props.aOptions;
     return(
       <Dialog
         fullScreen
         open={this.props.shouldOpen}
-        onRequestClose={this.handleRequestClose}
-        transition={Transition}>
+        onClose={this.handleRequestClose}
+        TransitionComponent={Transition}>
         
           <AppBar style={{position: 'relative'}}>
             <Toolbar>
-                <IconButton color="contrast" onClick={this.props.close} aria-label="Close">
+                <IconButton onClick={this.props.close} aria-label="Close">
                   <CloseIcon />
                 </IconButton>
                 <Typography type="title" color="inherit" style={{flex:1}}> {this.props.headTitle} </Typography>
-                <Button color="contrast" onClick={this.onDone}> Done </Button>
+                <Button onClick={this.onDone}> Done </Button>
               </Toolbar>
           </AppBar>
 

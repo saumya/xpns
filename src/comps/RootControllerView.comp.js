@@ -53,10 +53,11 @@
 	import UIPaidTo from './UIPaidTo.component'
 	import UICategory from './UICategory.component'
 
-/*
 	import UIViewPayments from './UIViewPayments.component'
 	import UIFilterPayments from './UIFilterPayments.component'
 	import UIFilterIncomes from './UIFilterIncomes.component'
+
+/*
 	import MessageInfo from './MessageInfo.component'
 	import UIPopupMessage from './UIPopupMessage.react'
 */
@@ -378,6 +379,8 @@
 	//getCompAndRender
 	getCompAndRender = () => {
 		console.log('RootControllerView : getCompAndRender : ',this.state.newViewName);
+		console.log('this.state.allDataSnapshot',this.state.allDataSnapshot)
+
 		// this.firebaseApp === null, firebase is not initialized
 		if(this.firebaseApp){
 			console.log('RootControllerView : getCompAndRender : this.firebaseApp',this.firebaseApp.name);
@@ -409,11 +412,26 @@
                                       paidtos={this.state.allDataSnapshot.persons} 
                                       onAddPayment={this.onAddPayment} />
 			break;
-			
 			case this.leftMenuNames.ADDRECEIVES:
 				newComp = <UIReceivePayment categories={this.state.allDataSnapshot.categories} 
                                       paidtos={this.state.allDataSnapshot.persons}
                                       addIncome={this.onAddIncome} />
+			break;
+
+			case this.leftMenuNames.VIEWINCOMES :
+				newComp = <UIViewPayments allData={this.state.allDataSnapshot.earnings} 
+	                                    deleteItem={this.deleteEntryIncome} 
+	                                    isIncomeView={true} 
+	                                    totalIncome={this.state.totalEarnings} />
+			break;
+			case this.leftMenuNames.VIEWPAYMENTS :
+				newComp = <UIViewPayments allData={this.state.allDataSnapshot.spendings} 
+                                    deleteItem={this.deleteEntry} 
+                                    totalSpending={this.state.totalSpending} />
+			break;
+			case this.leftMenuNames.FILTERINCOMES :
+			break;
+			case this.leftMenuNames.FILTERPAYMENTS :
 			break;
 
 			case this.leftMenuNames.PAIDTO :
@@ -436,6 +454,55 @@
 		return newComp;
 	}
 	// END getCompAndRender
+
+	onAddPayment = (categoryName,personName,dateString,amountString) => {
+    //console.group('AppComp : onAddPayment')
+    
+    var currentUser = this.firebaseApp.auth().currentUser;
+    var currentUserId = currentUser.uid;
+    var currentUserDBPath = 'paid/'+currentUserId+'/spendings'
+    
+    /*
+    console.log('currentUserId',currentUserId) // id to save
+    console.log('categoryName',categoryName) // value
+    console.log('personName',personName) // value
+    console.log('dateString',dateString) // value : 2017-03-28
+    console.log('amountString',amountString) // value
+    console.groupEnd()
+    */
+
+    var that = this
+    var callbackObj = {scope:that, callBack:this.onFirebaseSuccessCallBack}
+
+    FirebaseUtil.addNewExpense(this.firebaseApp,currentUserDBPath,{
+          paidById : currentUserId,
+          paidTo : personName,
+          paidOn : dateString,
+          ammount : String(amountString),
+          paidForProject : categoryName
+        },callbackObj)
+  }
+  onAddIncome = (categoryName,personName,dateString,amountString) => {
+    //console.group('AppComp : onAddIncome : ')
+
+    var currentUser = this.firebaseApp.auth().currentUser
+    var currentUserId = currentUser.uid
+    var currentUserDBPath = 'paid/'+currentUserId+'/earnings'
+    //console.log('AppComp : onAddIncome : ',currentUserDBPath)
+    //console.groupEnd()
+
+    var that = this
+    var callbackObj = {scope:that, callBack:this.onFirebaseSuccessCallBack}
+    
+    FirebaseUtil.addNewEarning(this.firebaseApp,currentUserDBPath,{
+          paidById : currentUserId,
+          paidTo : personName,
+          paidOn : dateString,
+          ammount : String(amountString),
+          paidForProject : categoryName
+        },callbackObj)
+    
+  }
 
  }// End Class
 

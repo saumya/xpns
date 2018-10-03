@@ -124,10 +124,10 @@ class UICompGivePayment extends Component{
                         onItemSelect={this.onItemSelectedFromPopup_paidTo}
                         headTitle={'Paid to'} 
                         aOptions={aPersons} />
-        <Button raised 
+        <Button variant="contained" 
                 style={{width:'80%', marginTop:'2em',backgroundColor:'white'}} 
                 onClick={this.onButtonClickCategory}> { sCategory } </Button>
-        <Button raised 
+        <Button variant="contained" 
                 style={{width:'80%', marginTop:'2em', marginBottom:'2em',backgroundColor:'white'}} 
                 onClick={this.onButtonClickPaidTo}> { sPaidTo } </Button>
         <div><input className="datePickerClass" type="date" onChange={this.handleChangeInDate.bind(this)} /></div>
@@ -136,7 +136,7 @@ class UICompGivePayment extends Component{
                     value={this.state.amountValue}
                     onChange={this.onTextChange} 
                     style={{width:'60%', marginTop:'0em'}} />
-        <Button raised color="primary" 
+        <Button variant="contained" color="primary" 
                 style={{width:'80%', marginTop:'2em', marginBottom:'1em'}} 
                 onClick={this.onAddPaymentClick}> Add Payment </Button>
       </Paper>
