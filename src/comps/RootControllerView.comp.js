@@ -49,9 +49,11 @@
 
 	import UICompGivePayment from './UICompGivePayment.react'
 	import UIReceivePayment from './UIReceivePayment.react'
-/*
+
 	import UIPaidTo from './UIPaidTo.component'
 	import UICategory from './UICategory.component'
+
+/*
 	import UIViewPayments from './UIViewPayments.component'
 	import UIFilterPayments from './UIFilterPayments.component'
 	import UIFilterIncomes from './UIFilterIncomes.component'
@@ -158,6 +160,7 @@
 					</AppBar>
 
 					<div style={{marginLeft: 0, marginTop: 50}}>
+					{ ( this.state.isError ? <div>{this.state.errorMessage}</div> : null ) }
 					{ ( this.state.isLoggedIn ? null : <div>Login to continue.</div> ) }
 					</div>
 
@@ -239,9 +242,9 @@
 
     firebaseUserDB.dbRefPaid.db.on('value', snapshot => {
     	console.log('AppComp : Paid : DB Change');
-    	//that.setState( {isError:false,errorMessage:''} );
+
     	if(snapshot.val()===null){
-    		//that.setState( {isError:true,errorMessage:'First Create some Category and PaidTo.'} );
+    		//that.setState( {isError:true,errorMessage:'No Data yet!'} );
     	}else{
     		var categories = snapshot.val().projects
         var persons = snapshot.val().persons
@@ -304,6 +307,12 @@
       console.log('TODO: work on receiving data flow');
       console.log('snapshot',snapshot.val());
       console.groupEnd();
+
+      if(snapshot.val()===null){
+      	// first time user
+      	this.setState({isError:true,errorMessage:'Welcome '+this.loggedInUser.displayName+'. Seems you are first time here, fillout your expenses to track.'})
+      }
+      
       //debugger;
       return false;
     });
@@ -320,12 +329,15 @@
 											photoURL: firebaseUser.photoURL 
 										}
 		//
-		this.setState({isLoggedIn:true, appUserObj:newUserObj,})
+		this.setState({isLoggedIn:true, appUserObj:newUserObj,isError:false})
 		
 	}
 	onAuthFail = errorMsg => {
     console.log('onAuthFail',errorMsg)
-    //this.showMessage(errorMsg)
+    this.showMessage(errorMsg)
+	}
+	showMessage = (errorMsg) => {
+		this.setState({isError:true,errorMessage:errorMsg})
 	}
 	addNewCategory = catName => {
 		console.log('AppComp : addNewCategory :',catName)
@@ -377,6 +389,19 @@
                                       paidtos={this.state.allDataSnapshot.persons}
                                       addIncome={this.onAddIncome} />
 			break;
+
+			case this.leftMenuNames.PAIDTO :
+        newComp = <UIPaidTo allData={this.state.allDataSnapshot.persons}
+                            deleteCallBack={this.deletePaidToWithId}
+                            showMessage={this.showMessage}
+                            addNewPaidTo={this.addNewPaidTo} />
+      break;
+      case this.leftMenuNames.CATEGORY :
+        newComp = <UICategory allData={this.state.allDataSnapshot.categories} 
+                              deleteCallBack={this.deleteCategoryWithId}
+                              showMessage={this.showMessage}
+                              addNewCategory={this.addNewCategory} />
+      break;
 
 			default :
 				newComp = <div>{this.state.newViewName}</div>
