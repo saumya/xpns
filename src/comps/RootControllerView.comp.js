@@ -339,11 +339,37 @@
 	showMessage = (errorMsg) => {
 		this.setState({isError:true,errorMessage:errorMsg})
 	}
+
+	// ==========  firebaseUtil CallBack ========
+  onFirebaseSuccessCallBack (msgObj) {
+    console.log('onFirebaseSuccessCallback')
+    this.setState({shouldShowPopUpMessage:true, sUIPopupMessage:msgObj})
+  }
+  onFirebaseErrorCallBack (msgObj) {
+    console.log('onFirebaseErrorCallBack')
+  }
+  // ========== / firebaseUtil CallBack ========
+
 	addNewCategory = catName => {
-		console.log('AppComp : addNewCategory :',catName)
+		console.log('RootControllerView : addNewCategory :',catName)
+
+		var currentUser = this.firebaseApp.auth().currentUser;
+    var currentUserId = currentUser.uid;
+    var userDBPath = 'paid/'+currentUserId+'/projects/';
+    var that = this
+    //
+    FirebaseUtil.addNewCategory(this.firebaseApp, userDBPath, catName, {scope:that, callBack:this.onFirebaseSuccessCallBack})
+
 	}
 	addNewPaidTo = ptName => {
-		console.log('AppComp : addNewPaidTo :',ptName);
+		console.log('RootControllerView : addNewPaidTo :',ptName);
+
+    var currentUser = this.firebaseApp.auth().currentUser;
+    var currentUserId = currentUser.uid;
+    var userDBPath = 'paid/'+currentUserId+'/persons/';
+    var that = this
+    //
+    FirebaseUtil.addNewPaidTo(this.firebaseApp, userDBPath, ptName, {scope:that, callBack:this.onFirebaseSuccessCallBack})
 	}
 	onFirebaseInitDone(firebaseAppRef){
 		this.firebaseApp = firebaseAppRef;
@@ -351,10 +377,10 @@
 
 	//getCompAndRender
 	getCompAndRender = () => {
-		console.log('AppComp : getCompAndRender : ',this.state.newViewName);
+		console.log('RootControllerView : getCompAndRender : ',this.state.newViewName);
 		// this.firebaseApp === null, firebase is not initialized
 		if(this.firebaseApp){
-			console.log('AppComp : getCompAndRender : this.firebaseApp',this.firebaseApp.name);
+			console.log('RootControllerView : getCompAndRender : this.firebaseApp',this.firebaseApp.name);
 		}
 
 		var newComp = null;
