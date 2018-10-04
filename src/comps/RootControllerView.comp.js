@@ -133,7 +133,6 @@
 			_menuCompFirstMenu = 	(  
 															<div> 
 																<MenuItem data-name={this.leftMenuNames.PROFILE} onClick={this.onSideMenuItemClick}> {displayName} </MenuItem>
-																<MenuItem data-name={this.leftMenuNames.EXPORT} onClick={this.onSideMenuItemClick}> Export Data </MenuItem>
 															</div> 
 														)
     }else{
@@ -427,7 +426,7 @@
 	                    <AuthUIComp firebaseRef={this.firebaseApp} 
 	                                loginSuccessCallback={this.onLoginSuccess} 
 	                                errorCallback={this.onAuthFail} /> 
-	                  </div>
+	                </div>
 			break;
 			case this.leftMenuNames.ABOUT :
 				newComp = <AboutAppUIComp>
