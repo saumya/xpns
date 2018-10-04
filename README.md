@@ -25,6 +25,6 @@ The expense tracking app. [First Version][ref1] is here.
 
 
 
-[ref1]: [https://github.com/saumya/FirebaseHostingTest]
+[ref1]: https://github.com/saumya/FirebaseHostingTest
 
  
