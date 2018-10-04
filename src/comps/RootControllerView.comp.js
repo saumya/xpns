@@ -337,9 +337,13 @@
     console.log('onAuthFail',errorMsg)
     this.showMessage(errorMsg)
 	}
+	
 	showMessage = (errorMsg) => {
 		this.setState({isError:true,errorMessage:errorMsg})
 	}
+	hideMessage = () => {
+    this.setState( {isError:false, errorMessage:''} )
+  }
 
 	// ==========  firebaseUtil CallBack ========
   onFirebaseSuccessCallBack (msgObj) {
@@ -429,9 +433,18 @@
                                     deleteItem={this.deleteEntry} 
                                     totalSpending={this.state.totalSpending} />
 			break;
+
 			case this.leftMenuNames.FILTERINCOMES :
+				newComp = <UIFilterIncomes allData={this.state.allDataSnapshot} 
+	                                      deleteItem={this.deleteEntry} 
+	                                      showMessage={this.showMessage} 
+	                                      hideMessage={this.hideMessage} />
 			break;
 			case this.leftMenuNames.FILTERPAYMENTS :
+				newComp = <UIFilterPayments allData={this.state.allDataSnapshot} 
+	                                      deleteItem={this.deleteEntry} 
+	                                      showMessage={this.showMessage} 
+	                                      hideMessage={this.hideMessage} />
 			break;
 
 			case this.leftMenuNames.PAIDTO :
