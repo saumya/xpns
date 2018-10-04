@@ -8,8 +8,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 const UIViewPayments = ({ allData, deleteItem, isIncomeView, totalIncome, totalSpending }) => {
 
@@ -49,21 +52,77 @@ const UIViewPayments = ({ allData, deleteItem, isIncomeView, totalIncome, totalS
     sMargin = '4.5em'
   }
   */
+
+  var onGetTotalEarnings = function(){
+    console.log('onGetTotalEarnings')
+
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "paid To,paid On,paid For,ammount" + "\r\n";
+
+    aSortedData.map((element,index) =>{
+      //console.log(element.paidTo,element.paidOn,element.paidForProject,element.ammount)
+      let row = (element.paidTo+','+element.paidOn+','+element.paidForProject+','+element.ammount)
+      csvContent += row + "\r\n";
+    })
+    //ref: https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "my_income.csv");
+    link.innerHTML= "income";// just to hide, its empty text
+    document.body.appendChild(link); // Required for FF
+
+    link.click();
+    document.body.removeChild(link);
+  }
+  var onGetTotalSpendings = function(){
+    console.log('onGetTotalSpendings')
+
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "paid To,paid On,paid For,ammount" + "\r\n";
+
+    aSortedData.map((element,index) => {
+      //console.log(element.paidTo,element.paidOn,element.paidForProject,element.ammount)
+      let row = (element.paidTo+','+element.paidOn+','+element.paidForProject+','+element.ammount)
+      csvContent += row + "\r\n";
+    })
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "my_expense.csv");
+    link.innerHTML= "expense";// just to hide, its empty text
+    document.body.appendChild(link); // Required for FF
+
+    link.click();
+    document.body.removeChild(link);
+  }
+
   //
   return(
     <Fragment>
     {
       (isIncomeView?
         <Paper style={{marginTop:'4.5em', width:'90%', marginLeft:'5%', paddingTop:'1em', paddingBottom:'1em', backgroundColor:'#E8F5E9'}}>
+          <center>
           Total {totalIncome}
+          <Button variant="contained" size="small" style={{left:'1em', backgroundColor:'#E91E63'}} onClick={onGetTotalEarnings}>
+            <SaveAltIcon style={{color:'#FFFFFF'}} /> <span style={{marginLeft:'1em',marginRight:'1em', color:'#FFFFFF'}}> Get Data </span>
+          </Button>
+          </center>
         </Paper>
         :
         <Paper style={{marginTop:'4.5em', width:'90%', marginLeft:'5%', paddingTop:'1em', paddingBottom:'1em', backgroundColor:'#FFEBEE'}}>
+          <center>
           Total {totalSpending}
+          <Button variant="contained" size="small" style={{left:'1em', backgroundColor:'#E91E63'}} onClick={onGetTotalSpendings}>
+            <SaveAltIcon style={{color:'#FFFFFF'}} /> <span style={{marginLeft:'1em',marginRight:'1em', color:'#FFFFFF'}}> Get Data </span>
+          </Button>
+          </center>
         </Paper>
       )
     }
     <Paper style={{marginTop:sMargin , width:'90%', marginLeft:'5%'}}>
+
     {/*
       <div style={{position:'static', top:'4em',right:'0'}} color="primary">
         <Typography type="title" color="inherit">

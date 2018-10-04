@@ -337,12 +337,36 @@
     console.log('onAuthFail',errorMsg)
     this.showMessage(errorMsg)
 	}
-	
+
 	showMessage = (errorMsg) => {
 		this.setState({isError:true,errorMessage:errorMsg})
 	}
 	hideMessage = () => {
     this.setState( {isError:false, errorMessage:''} )
+  }
+
+  deleteEntryIncome = idKey => {
+    console.log('AppComp : deleteEntryIncome : idKey',idKey);
+    var currentUser = this.firebaseApp.auth().currentUser;
+    var currentUserId = currentUser.uid;
+    var deleteDBPath = 'paid/'+currentUserId+'/earnings/'+idKey;
+
+    var that = this
+    var callbackObj = {scope:that, callBack:this.onFirebaseSuccessCallBack}
+
+    FirebaseUtil.deleteIncomeEntry(this.firebaseApp, deleteDBPath, callbackObj)
+  }
+  deleteEntry = (idKey) => {
+    console.log('AppComp : deleteEntry : idKey',idKey);
+
+    var currentUser = this.firebaseApp.auth().currentUser;
+    var currentUserId = currentUser.uid;
+    var deleteDBPath = 'paid/'+currentUserId+'/spendings/'+idKey;
+
+    var that = this
+    var callbackObj = {scope:that, callBack:this.onFirebaseSuccessCallBack}
+
+    FirebaseUtil.deleteExpenseEntry(this.firebaseApp, deleteDBPath, callbackObj)
   }
 
 	// ==========  firebaseUtil CallBack ========
@@ -376,6 +400,7 @@
     //
     FirebaseUtil.addNewPaidTo(this.firebaseApp, userDBPath, ptName, {scope:that, callBack:this.onFirebaseSuccessCallBack})
 	}
+
 	onFirebaseInitDone(firebaseAppRef){
 		this.firebaseApp = firebaseAppRef;
 	}
