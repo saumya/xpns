@@ -2,8 +2,8 @@
 
 The expense tracking app. [First Version][ref1] is here.
 
- version - 0.3.0 - Gitlab
- version - 0.4.0
+ - version - 0.3.0 - Gitlab
+ - version - 0.4.0
  
 
 
