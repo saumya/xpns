@@ -161,7 +161,7 @@
 
 					<div style={{marginLeft: 0, marginTop: 50}}>
 					{ ( this.state.isError ? <div>{this.state.errorMessage}</div> : null ) }
-					{ ( this.state.isLoggedIn ? null : <div>Login to continue.</div> ) }
+					{/* ( this.state.isLoggedIn ? null : <div>Login to continue.</div> ) */}
 					</div>
 
 					
@@ -307,11 +307,12 @@
       console.log('TODO: work on receiving data flow');
       console.log('snapshot',snapshot.val());
       console.groupEnd();
-
+      /*
       if(snapshot.val()===null){
       	// first time user
       	this.setState({isError:true,errorMessage:'Welcome '+this.loggedInUser.displayName+'. Seems you are first time here, fillout your expenses to track.'})
       }
+      */
       
       //debugger;
       return false;
