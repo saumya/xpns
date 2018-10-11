@@ -67,7 +67,8 @@ class UIPopupPaidTo extends Component {
       <Dialog
         fullScreen
         open={bOpen}
-        onClose={this.handleRequestClose}>
+        onClose={this.handleRequestClose} 
+        TransitionComponent={Transition}>
         
 
           <AppBar style={{position: 'relative'}}>
