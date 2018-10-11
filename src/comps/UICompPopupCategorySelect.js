@@ -66,10 +66,10 @@ class UICompPopupCategorySelect extends Component {
           <AppBar style={{position: 'relative'}}>
             <Toolbar>
                 <IconButton onClick={this.props.close} aria-label="Close">
-                  <CloseIcon />
+                  <CloseIcon style={{color:'white'}} />
                 </IconButton>
                 <Typography type="title" color="inherit" style={{flex:1}}> {this.props.headTitle} </Typography>
-                <Button onClick={this.onDone}> Done </Button>
+                <Button onClick={this.onDone} style={{color:'white'}}> Done </Button>
               </Toolbar>
           </AppBar>
 
