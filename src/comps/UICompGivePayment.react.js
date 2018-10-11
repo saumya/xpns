@@ -101,6 +101,7 @@ class UICompGivePayment extends Component{
 
     return(
       <Paper style={{ marginTop:'4em',marginLeft:'5%',paddingTop:'5%',paddingBottom:'2%',width:'90%',minHeight:'140px', backgroundColor:'#FFEBEE'}}>
+        <center>
         <Typography type="headline" component="h3"> Expense </Typography>
 
         {/*<h5>Choose Category</h5> <DropDownMenu autoWidth={false} style={{width:'80%', marginLeft:'1%'}} children={allProjectItems} value={this.state.projectValue} onChange={this.handleProjectChange.bind(this)}>    
@@ -139,6 +140,7 @@ class UICompGivePayment extends Component{
         <Button variant="contained" color="primary" 
                 style={{width:'80%', marginTop:'2em', marginBottom:'1em'}} 
                 onClick={this.onAddPaymentClick}> Add Payment </Button>
+        </center>
       </Paper>
     )
   }

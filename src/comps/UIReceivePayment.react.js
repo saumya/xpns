@@ -81,6 +81,7 @@ class UIReceivePayment extends Component{
     return(
       <Paper style={{ marginTop:'4em',marginLeft:'5%',paddingTop:'5%',paddingBottom:'2%',width:'90%',minHeight:'140px', backgroundColor:'#E8F5E9'}}>
         
+        <center>
         <Typography type="headline" component="h3"> Income </Typography>
 
         <UICompPopupCategorySelect shouldOpen={this.state.ui.popupCategory} 
@@ -108,6 +109,7 @@ class UIReceivePayment extends Component{
         <Button variant="contained" color="primary" 
                 style={{width:'80%', marginTop:'2em', marginBottom:'1em'}} 
                 onClick={this.onAddIncome}> Add Income </Button>
+        </center>
       </Paper>
     )
   }
