@@ -49,13 +49,18 @@ class UICompPopupCategorySelect extends Component {
     //console.log('UICompPopupCategorySelect : render : ');
     //console.log('UICompPopupCategorySelect : render : this.props.shouldOpen',this.props.shouldOpen);
     //console.log('selected id',this.state.value);
+
+    var bOpen = false;
+    if(this.props.shouldOpen){
+      bOpen = this.props.shouldOpen;
+    }
+
     var allCategories = this.props.aOptions;
     return(
       <Dialog
         fullScreen
-        open={this.props.shouldOpen}
-        onClose={this.handleRequestClose}
-        TransitionComponent={Transition}>
+        open={bOpen}
+        onClose={this.handleRequestClose}>
         
           <AppBar style={{position: 'relative'}}>
             <Toolbar>

@@ -57,23 +57,26 @@ class UIPopupPaidTo extends Component {
     
     //console.log('UIPopupPaidTo : render : ');
     //console.log('selected id',this.state.value);
+    var bOpen = false;
+    if(this.props.shouldOpen){
+      bOpen = this.props.shouldOpen;
+    }
 
     var allCategories = this.props.aOptions;
     return(
       <Dialog
         fullScreen
-        open={this.props.shouldOpen}
-        onRequestClose={this.handleRequestClose}
-        transition={Transition}>
+        open={bOpen}
+        onClose={this.handleRequestClose}>
         
 
           <AppBar style={{position: 'relative'}}>
             <Toolbar>
-                <IconButton color="contrast" onClick={this.props.close} aria-label="Close">
+                <IconButton onClick={this.props.close} aria-label="Close">
                   <CloseIcon />
                 </IconButton>
                 <Typography type="title" color="inherit" style={{flex:1}}> {this.props.headTitle} </Typography>
-                <Button color="contrast" onClick={this.onDone}> Done </Button>
+                <Button onClick={this.onDone}> Done </Button>
               </Toolbar>
           </AppBar>
 
