@@ -15,7 +15,7 @@ The expense tracking app. [First Version][ref1] is here.
 
 
 ### Animation
- I am using [GSAP][ref2] with [NPM][ref3] for this application        
+ I am using [GSAP][ref2] with [NPM][ref3] for this application by [GSAP for react][ref4]        
 
 
 
@@ -37,5 +37,6 @@ The expense tracking app. [First Version][ref1] is here.
 [ref1]: https://github.com/saumya/FirebaseHostingTest
 [ref2]: https://greensock.com/get-started-js
 [ref3]: https://greensock.com/docs/NPMUsage
+[ref4]: https://greensock.com/react
 
  
