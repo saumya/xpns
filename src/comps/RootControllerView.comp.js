@@ -148,13 +148,13 @@
  		return(
  				<Fragment>
 					<FirebaseControllerView onFirebaseInitDone={this.onFirebaseInitDone} />
-					<AppBar title="XpNS" position="fixed" color="primary">
+					<AppBar position="fixed" color="primary">
 
 					<Toolbar>
 						<IconButton style={{marginLeft: -12,marginRight: 20,}} color="secondary" aria-label="Menu" onClick={this.handleLeftMenu}>
               <MenuIcon />
             </IconButton>
-						<Typography variant="title" color="inherit" style={{'flexGrow': 1,}}>
+						<Typography variant="h6" color="inherit" style={{'flexGrow': 1,}}>
 							Expense
 						</Typography>
         	</Toolbar>
