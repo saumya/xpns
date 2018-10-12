@@ -1,10 +1,7 @@
-## Xpns
+## Xpns ( 0.4.0 )
 
 The expense tracking app. [First Version][ref1] is here.
 
- - version - 0.3.0 - Gitlab
- - version - 0.4.0
- 
 
 
 ### PWA and Settings
