@@ -165,29 +165,29 @@ class UIReceivePayment extends Component{
     return false;
   }
   handleRequestCloseCategorySelect(event){
-    console.log('handleRequestCloseCategorySelect');
+    //console.log('handleRequestCloseCategorySelect');
     this.setState({ui:{popupCategory:false}});
   }
   handleRequestClosePaidToSelect = event => {
-    console.log('handleRequestClosePaidToSelect : ');
+    //console.log('handleRequestClosePaidToSelect : ');
     this.setState({ui:{popupPaidTo:false}});
   }
   handleRequestClose(event){
-    console.log('handleRequestClose');
+    //console.log('handleRequestClose');
   } 
   // ====== End == EventHandlers
   // === Callback ===
   onItemSelectedFromPopup_category = (itemID) => {
-    console.log('================================')
-    console.log('onItemSelectedFromPopup_category : ',itemID)
-    console.log('================================')
+    //console.log('================================')
+    //console.log('onItemSelectedFromPopup_category : ',itemID)
+    //console.log('================================')
     this.state.projectValue = itemID
     return false
   }
   onItemSelectedFromPopup_paidTo = (itemID) => {
-    console.log('================================')
-    console.log('onItemSelectedFromPopup_paidTo : ',itemID)
-    console.log('================================')
+    //console.log('================================')
+    //console.log('onItemSelectedFromPopup_paidTo : ',itemID)
+    //console.log('================================')
     this.state.personValue = itemID;
     return false
   }

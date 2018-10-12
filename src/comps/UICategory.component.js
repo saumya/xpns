@@ -84,7 +84,7 @@ class UICategory extends Component {
     return false;
   }
   onButtonClick = (event) => {
-    console.log('UICategory : onButtonClick : ');
+    //console.log('UICategory : onButtonClick : ');
     
     const sTextValue = this.state.sText
     if(sTextValue===''){
@@ -98,7 +98,7 @@ class UICategory extends Component {
     return false;
   }
   onDeleteClick = (event) => {
-    console.log('UICategory : onDeleteClick : ');
+    //console.log('UICategory : onDeleteClick : ');
     var k = event.currentTarget.getAttribute('data-key')
     this.props.deleteCallBack(k)
     return false;

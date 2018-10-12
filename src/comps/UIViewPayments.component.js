@@ -54,7 +54,7 @@ const UIViewPayments = ({ allData, deleteItem, isIncomeView, totalIncome, totalS
   */
 
   var onGetTotalEarnings = function(){
-    console.log('onGetTotalEarnings')
+    //console.log('onGetTotalEarnings')
 
     let csvContent = "data:text/csv;charset=utf-8,";
     csvContent += "paid To,paid On,paid For,ammount" + "\r\n";
@@ -76,7 +76,7 @@ const UIViewPayments = ({ allData, deleteItem, isIncomeView, totalIncome, totalS
     document.body.removeChild(link);
   }
   var onGetTotalSpendings = function(){
-    console.log('onGetTotalSpendings')
+    //console.log('onGetTotalSpendings')
 
     let csvContent = "data:text/csv;charset=utf-8,";
     csvContent += "paid To,paid On,paid For,ammount" + "\r\n";
@@ -144,7 +144,7 @@ const UIViewPayments = ({ allData, deleteItem, isIncomeView, totalIncome, totalS
             {''+element.ammount+''}
             <span style={{paddingLeft:"10px"}} />
             {
-            <IconButton onClick={function(){console.log('Delete:'+element.key), deleteItem(element.key)}}>
+            <IconButton onClick={function(){/*console.log('Delete:'+element.key),*/ deleteItem(element.key)}}>
               <DeleteIcon />
             </IconButton>
             }

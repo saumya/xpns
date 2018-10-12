@@ -115,12 +115,12 @@ class UIPopupPaidTo extends Component {
     this.setState({ value });
   }
   onDone = (event) => {
-    console.log('onDone : this.state.value',this.state.value);
+    //console.log('onDone : this.state.value',this.state.value);
     this.props.onItemSelect(this.state.value)
     this.props.close();
   }
   handleRequestClose(event){
-    console.log('UIPopupPaidTo:handleRequestClose:');
+    //console.log('UIPopupPaidTo:handleRequestClose:');
   }
 }
 

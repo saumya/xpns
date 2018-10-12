@@ -77,23 +77,22 @@ class UIPopupFilters extends Component {
       <Dialog
         fullScreen
         open={this.props.shouldOpen}
-        onRequestClose={this.handleRequestClose}
-        transition={Transition}>
+        onClose={this.handleRequestClose}
+        TransitionComponent={Transition}>
           <AppBar style={{position: 'relative'}}>
             <Toolbar>
-                <IconButton color="contrast" onClick={this.props.closeOnCancel} aria-label="Close">
+                <IconButton onClick={this.props.closeOnCancel} aria-label="Close" style={{color: 'white'}}>
                   <KeyboardArrowLeftIcon style={{width:'2em',height:'2em'}} />
                 </IconButton>
-                <Typography type="title" color="inherit" style={{flex:1}}> {this.props.headTitle} </Typography>
-                <Button color="contrast" onClick={this.onDone}> Done </Button>
+                <Typography type="title" style={{flex:1, color: 'white'}}> {this.props.headTitle} </Typography>
+                <Button onClick={this.onDone} style={{color: 'white'}}> Done </Button>
               </Toolbar>
           </AppBar>
         {/* <DialogTitle>All Paid-To</DialogTitle> */}
         <DialogContent>
           <Paper style={{marginTop:'1em'}}>
           
-            <Typography type="title" gutterBottom 
-                        color="inherit" 
+            <Typography type="title" gutterBottom  
                         style={{marginLeft:'2em'}}
                         align="left"> Filter by </Typography>
             
@@ -184,7 +183,7 @@ class UIPopupFilters extends Component {
     this.setState({ value });
   }
   onDone = (event) => {
-    console.log('onDone : this.state.value',this.state);
+    //console.log('onDone : this.state.value',this.state);
     //this.props.onItemSelect(this.state.value)
     /*
     console.group('UIPopupFilters : Filter')
@@ -207,10 +206,10 @@ class UIPopupFilters extends Component {
     this.props.close(filterObj);
   }
   handleRequestClose = (event) => {
-    console.log('UIPopupFilters : handleRequestClose :');
+    //console.log('UIPopupFilters : handleRequestClose :');
   }
   onButtonClick = (event) => {
-    console.log('onButtonClick');
+    //console.log('onButtonClick');
   }
   /*
   handleChangeInDate = (event) => {

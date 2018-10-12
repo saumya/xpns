@@ -107,7 +107,7 @@ class UIFilterIncomes extends Component {
       }
       </Paper>
       <div style={{position:'fixed', bottom:"4em", right:"4em"}}>
-        <Button fab mini color="primary" 
+        <Button mini color="primary" 
                 aria-label="filter" 
                 onClick={this.onFilterOpenClick}
                 style={{position:'fixed', marginLeft:'0em'}}>
@@ -119,16 +119,16 @@ class UIFilterIncomes extends Component {
   }
   //
   onFilterOpenClick = (event) => {
-    console.log('onFilterOpenClick')
+    //console.log('onFilterOpenClick')
     this.setState({ui:{isFilterUIOpen:!this.state.ui.isFilterUIOpen}});
   }
 
   handleCloseOnCancelFilterUI = (event) => {
-    console.log('UIFilterPayments : closeOnCancel')
+    //console.log('UIFilterPayments : closeOnCancel')
     this.setState({ui:{isFilterUIOpen: false}})
   }
   handleCloseFilterUI = (filterObj) => {
-    console.log('UIFilterPayments : handleCloseFilterUI')
+    //console.log('UIFilterPayments : handleCloseFilterUI')
     //console.group('Filter & Close : WIP ');
     //console.log(filterObj.sCategory)
     //console.log(filterObj.sPaidTo)
@@ -160,7 +160,7 @@ class UIFilterIncomes extends Component {
     if(filterObj.shouldFilterByCategory){
       if(filterObj.shouldFilterByPaidTo){
         if(filterObj.shouldFilterByDate){
-          console.log('========= FILTER ======== Category + PaidTo + Date')
+          //console.log('========= FILTER ======== Category + PaidTo + Date')
           filteredCategoryDataObj = FirebaseUtil.filterByCategoryName(aSpendings,filterObj.sCategory)
           filteredCategoryData = filteredCategoryDataObj.filteredArray
           
@@ -173,7 +173,7 @@ class UIFilterIncomes extends Component {
           filterByInfo = filterObj.sCategory+' + '+filterObj.sPaidTo+' + '+filterObj.sDate
           //DONE
         }else if(filterObj.shouldFilterByMonth){
-          console.log('========= FILTER ======== Category + PaidTo + Month')
+          //console.log('========= FILTER ======== Category + PaidTo + Month')
           filteredCategoryDataObj = FirebaseUtil.filterByCategoryName(aSpendings,filterObj.sCategory)
           filteredCategoryData = filteredCategoryDataObj.filteredArray
           
@@ -185,7 +185,7 @@ class UIFilterIncomes extends Component {
 
           filterByInfo = filterObj.sCategory+' + '+filterObj.sPaidTo+' + '+filterObj.sMonth
         }else{
-          console.log('========= FILTER ======== Category + PaidTo')
+          //console.log('========= FILTER ======== Category + PaidTo')
           filteredCategoryDataObj = FirebaseUtil.filterByCategoryName(aSpendings,filterObj.sCategory)
           filteredCategoryData = filteredCategoryDataObj.filteredArray
           
@@ -196,7 +196,7 @@ class UIFilterIncomes extends Component {
           //DONE
         }
       }else if(filterObj.shouldFilterByDate){
-        console.log('========= FILTER ======== Category + Date')
+        //console.log('========= FILTER ======== Category + Date')
         filteredCategoryDataObj = FirebaseUtil.filterByCategoryName(aSpendings,filterObj.sCategory)
         filteredCategoryData = filteredCategoryDataObj.filteredArray
         
@@ -206,7 +206,7 @@ class UIFilterIncomes extends Component {
         filterByInfo = filterObj.sCategory+' + '+filterObj.sDate
         //DONE
       }else if(filterObj.shouldFilterByMonth){
-        console.log('========= FILTER ======== Category + Month')
+        //console.log('========= FILTER ======== Category + Month')
         filteredCategoryDataObj = FirebaseUtil.filterByCategoryName(aSpendings,filterObj.sCategory)
         filteredCategoryData = filteredCategoryDataObj.filteredArray
         
@@ -215,7 +215,7 @@ class UIFilterIncomes extends Component {
         
         filterByInfo = filterObj.sCategory+' + '+filterObj.sMonth
       }else{
-        console.log('========= FILTER ======== Category')
+        //console.log('========= FILTER ======== Category')
         filteredCategoryDataObj = FirebaseUtil.filterByCategoryName(aSpendings,filterObj.sCategory)
         resultDataArray = filteredCategoryDataObj.filteredArray
         
@@ -224,7 +224,7 @@ class UIFilterIncomes extends Component {
       }
     }else if(filterObj.shouldFilterByPaidTo){
       if(filterObj.shouldFilterByDate){
-        console.log('========= FILTER ======== PaidTo + Date')
+        //console.log('========= FILTER ======== PaidTo + Date')
         filteredPersonObj = FirebaseUtil.filterByPaidToName(aSpendings,filterObj.sPaidTo)
         filteredPersonData = filteredPersonObj.filteredArray
         
@@ -234,7 +234,7 @@ class UIFilterIncomes extends Component {
         filterByInfo = filterObj.sPaidTo+' + '+filterObj.sDate
         //DONE
       }else if(filterObj.shouldFilterByMonth){
-        console.log('========= FILTER ======== PaidTo + Month')
+        //console.log('========= FILTER ======== PaidTo + Month')
         filteredPersonObj = FirebaseUtil.filterByPaidToName(aSpendings,filterObj.sPaidTo)
         filteredPersonData = filteredPersonObj.filteredArray
         
@@ -243,7 +243,7 @@ class UIFilterIncomes extends Component {
         
         filterByInfo = filterObj.sPaidTo+' + '+filterObj.sMonth
       }else{
-        console.log('========= FILTER ======== PaidTo')
+        //console.log('========= FILTER ======== PaidTo')
         filteredPersonObj = FirebaseUtil.filterByPaidToName(aSpendings,filterObj.sPaidTo)
         resultDataArray = filteredPersonObj.filteredArray
         
@@ -251,14 +251,14 @@ class UIFilterIncomes extends Component {
         //DONE
       }
     }else if(filterObj.shouldFilterByDate){
-      console.log('========= FILTER ======== Date')
+      //console.log('========= FILTER ======== Date')
       filteredDateObj = FirebaseUtil.filterBydate(aSpendings,filterObj.sDate)
       resultDataArray = filteredDateObj.filteredArray
       
       filterByInfo = filterObj.sDate
       //DONE
     }else if(filterObj.shouldFilterByMonth){
-      console.log('========= FILTER ======== Month')
+      //console.log('========= FILTER ======== Month')
       filteredMonthObj = FirebaseUtil.filterByMonth(aSpendings,filterObj.sMonth)
       resultDataArray = filteredMonthObj.filteredArray
 

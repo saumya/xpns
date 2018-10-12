@@ -39,7 +39,7 @@ class AuthUIComp extends Component {
 	}// END render
 
 	onLoginWithGoogle(event){
-		console.log('AuthUIComp:onLoginWithGoogle');
+		//console.log('AuthUIComp:onLoginWithGoogle');
 		var that = this;
 		var firebaseRef = this.props.firebaseRef;// 'this' refers to the class because of the 'bind()' we did in the 'constructor'
 		var provider = new firebase.auth.GoogleAuthProvider();
@@ -75,7 +75,7 @@ class AuthUIComp extends Component {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-
+        /*
         console.group('Auth Error');
         console.log('ERROR',error);
         console.log('errorCode',errorCode);
@@ -83,7 +83,7 @@ class AuthUIComp extends Component {
         console.log('email',email);
         console.log('credential',credential);
         console.groupEnd();
-
+        */
         that.props.errorCallback(errorMessage);
     });
 	}// onLoginWithGoogle

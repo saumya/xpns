@@ -107,12 +107,12 @@ class UICompPopupCategorySelect extends Component {
     this.setState({ value });
   }
   onDone = (event) => {
-    console.log('onDone: TODO: Add the logic here before closing.');
+    //console.log('onDone: TODO: Add the logic here before closing.');
     this.props.onItemSelect(this.state.value)
     this.props.close();
   }
   handleRequestClose(event){
-    console.log('UICompPopupCategorySelect:handleRequestClose:');
+    //console.log('UICompPopupCategorySelect:handleRequestClose:');
   }
 }
 

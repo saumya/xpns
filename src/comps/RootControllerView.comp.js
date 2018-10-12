@@ -108,7 +108,8 @@
     this.addNewPaidTo = this.addNewPaidTo.bind(this);
  	}
  	render(){
-		 
+		
+		/* 
 		console.group('render')
 		
 		console.log('isSideMenuOpen', this.state.isSideMenuOpen)
@@ -125,6 +126,7 @@
 		console.log('======== / snapshot ========')
 
 		console.groupEnd()
+		*/
 
 		var displayName = '';
     var _menuCompFirstMenu = null;
@@ -202,14 +204,14 @@
 	componentWillUnmount(){}
 	// ========= Event handlers
 	handleLeftMenu = event => {
-		console.log('handleLeftMenu :')
+		//console.log('handleLeftMenu :')
 		this.setState({isSideMenuOpen: !this.state.isSideMenuOpen});
 	}
 	onSideMenuItemClick = event => {
-		console.log('onSideMenuItemClick :')
+		//console.log('onSideMenuItemClick :')
 		var el = event.target;
     var menuName = el.dataset['name'];
-    console.log('onSideMenuItemClick : MenuName=',menuName);
+    //console.log('onSideMenuItemClick : MenuName=',menuName);
 
 		var that = this;
 		
@@ -224,7 +226,7 @@
 
 	// callbacks
 	onLoginSuccess = (googleUserAccessToken,firebaseUser,googleUserId) => {
-		
+		/*
 		console.group('onLoginSuccess :')
 		console.log('onLoginSuccess :')
 		console.log(googleUserAccessToken,firebaseUser,googleUserId)
@@ -233,6 +235,7 @@
 		console.log(firebaseUser.email)
 		console.log(firebaseUser.photoURL)
 		console.groupEnd()
+		*/
 		// getting the data
 		this.loggedInUser = firebaseUser;
     const firebaseUserDB = FirebaseUtil.getFirebaseAppData(this.firebaseApp,googleUserId);
@@ -241,7 +244,7 @@
     var that = this;
 
     firebaseUserDB.dbRefPaid.db.on('value', snapshot => {
-    	console.log('AppComp : Paid : DB Change');
+    	//console.log('AppComp : Paid : DB Change');
 
     	if(snapshot.val()===null){
     		//that.setState( {isError:true,errorMessage:'No Data yet!'} );
@@ -277,8 +280,8 @@
       FirebaseUtil.addKeyToEachElement(categories)
       FirebaseUtil.addKeyToEachElement(persons)
 
-      console.log('==================')
-      console.log('==================')
+      //console.log('==================')
+      //console.log('==================')
 
       this.setState({ 
       								allDataSnapshot:
@@ -296,17 +299,19 @@
 
     // ================= Utility ==================================
     firebaseUserDB.dbRefPaid.db.on('child_added', function(data) {
-      console.log('AppComp : Paid : child_added : ');
+      //console.log('AppComp : Paid : child_added : ');
     })
     // received
     firebaseUserDB.dbRefReceived.db.on('value', snapshot => {
-      console.log('AppComp : Received : DB Change');
+      //console.log('AppComp : Received : DB Change');
       //console.log('snapshot',snapshot.val());
       //console.log('this.state',this.state);
+      /*
       console.group('Received');
       console.log('TODO: work on receiving data flow');
       console.log('snapshot',snapshot.val());
       console.groupEnd();
+      */
       /*
       if(snapshot.val()===null){
       	// first time user
@@ -318,7 +323,7 @@
       return false;
     });
     firebaseUserDB.dbRefReceived.db.on('child_added',function(snapshot){
-      console.log('AppComp : Received : child_added : ');
+      //console.log('AppComp : Received : child_added : ');
     });
     // ================= /Utility ==================================
 
@@ -334,7 +339,7 @@
 		
 	}
 	onAuthFail = errorMsg => {
-    console.log('onAuthFail',errorMsg)
+    //console.log('onAuthFail',errorMsg)
     this.showMessage(errorMsg)
 	}
 
@@ -346,7 +351,7 @@
   }
 
   deleteEntryIncome = idKey => {
-    console.log('AppComp : deleteEntryIncome : idKey',idKey);
+    //console.log('AppComp : deleteEntryIncome : idKey',idKey);
     var currentUser = this.firebaseApp.auth().currentUser;
     var currentUserId = currentUser.uid;
     var deleteDBPath = 'paid/'+currentUserId+'/earnings/'+idKey;
@@ -357,7 +362,7 @@
     FirebaseUtil.deleteIncomeEntry(this.firebaseApp, deleteDBPath, callbackObj)
   }
   deleteEntry = (idKey) => {
-    console.log('AppComp : deleteEntry : idKey',idKey);
+    //console.log('AppComp : deleteEntry : idKey',idKey);
 
     var currentUser = this.firebaseApp.auth().currentUser;
     var currentUserId = currentUser.uid;
@@ -371,16 +376,16 @@
 
 	// ==========  firebaseUtil CallBack ========
   onFirebaseSuccessCallBack (msgObj) {
-    console.log('onFirebaseSuccessCallback')
+    //console.log('onFirebaseSuccessCallback')
     this.setState({shouldShowPopUpMessage:true, sUIPopupMessage:msgObj})
   }
   onFirebaseErrorCallBack (msgObj) {
-    console.log('onFirebaseErrorCallBack')
+    //console.log('onFirebaseErrorCallBack')
   }
   // ========== / firebaseUtil CallBack ========
 
 	addNewCategory = catName => {
-		console.log('RootControllerView : addNewCategory :',catName)
+		//console.log('RootControllerView : addNewCategory :',catName)
 
 		var currentUser = this.firebaseApp.auth().currentUser;
     var currentUserId = currentUser.uid;
@@ -391,7 +396,7 @@
 
 	}
 	addNewPaidTo = ptName => {
-		console.log('RootControllerView : addNewPaidTo :',ptName);
+		//console.log('RootControllerView : addNewPaidTo :',ptName);
 
     var currentUser = this.firebaseApp.auth().currentUser;
     var currentUserId = currentUser.uid;
@@ -407,13 +412,15 @@
 
 	//getCompAndRender
 	getCompAndRender = () => {
-		console.log('RootControllerView : getCompAndRender : ',this.state.newViewName);
-		console.log('this.state.allDataSnapshot',this.state.allDataSnapshot)
+		//console.log('RootControllerView : getCompAndRender : ',this.state.newViewName);
+		//console.log('this.state.allDataSnapshot',this.state.allDataSnapshot)
 
 		// this.firebaseApp === null, firebase is not initialized
+		/*
 		if(this.firebaseApp){
 			console.log('RootControllerView : getCompAndRender : this.firebaseApp',this.firebaseApp.name);
 		}
+		*/
 
 		var newComp = null;
 		switch(this.state.newViewName){

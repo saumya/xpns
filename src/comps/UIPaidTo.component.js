@@ -80,7 +80,7 @@ class UIPaidTo extends Component {
     this.setState({sText:tValue});
   }
   onButtonClick = (event) => {
-    console.log('UIPaidTo : onButtonClick : ');
+    //console.log('UIPaidTo : onButtonClick : ');
     //this.props.addNewPaidTo(this.state.sText);
 
     const sTextValue = this.state.sText
@@ -95,7 +95,7 @@ class UIPaidTo extends Component {
     return false;
   }
   onDeleteClick = (event) => {
-    console.log('UIPaidTo : onDeleteClick : ');
+    //console.log('UIPaidTo : onDeleteClick : ');
     var k = event.currentTarget.getAttribute('data-key')
     this.props.deleteCallBack(k)
     return false;

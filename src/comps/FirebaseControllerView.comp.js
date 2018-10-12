@@ -26,21 +26,27 @@
  			)
  	}
  	componentDidMount(){
+    
+    /*
     console.group('FirebaseControllerView : componentDidMount :')
     console.log('FirebaseControllerView : componentDidMount :')
     console.groupEnd()
-    // initialise Firebase
+    */
+    
+    //initialise Firebase
     var myApp = firebase.initializeApp(FirebaseConfig.getThisAppConfig().firebase,'Xpns-4.0.0');
-    console.log('App Name',myApp.name);
+    
+    //console.log('App Name',myApp.name);
     //console.log('Database',myApp.database()); //firebase.database()
     //console.log('Storage',myApp.storage()); //firebase.storage()
+    
     this.firebaseApp = myApp;
     var that = this
 
     this.props.onFirebaseInitDone(myApp)
    }
  	componentWillUnmount(){
-    console.log('FirebaseControllerView : componentWillUnmount :')
+    //console.log('FirebaseControllerView : componentWillUnmount :')
    }
  }
 

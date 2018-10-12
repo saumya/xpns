@@ -208,7 +208,7 @@ class UICompGivePayment extends Component{
     //console.log('onTextChange : =================');
   }
   handleChangeInDate(event){
-    console.log('handleChangeInDate : ======================= ');
+    //console.log('handleChangeInDate : ======================= ');
     //console.log('event',event);
     //console.log('date',date);
     //this.setState({dateValue:date});
@@ -217,34 +217,34 @@ class UICompGivePayment extends Component{
     var dateValue = event.target.value;
     //console.log('dateValue',dateValue);
     this.setState({dateValue:dateValue});
-    console.log('dateValue',dateValue);
-    console.log('handleChangeInDate : ======================= ');
+    //console.log('dateValue',dateValue);
+    //console.log('handleChangeInDate : ======================= ');
     return false;
   }
   handleRequestCloseCategorySelect(event){
-    console.log('UICompGivePayment : handleRequestCloseCategorySelect : ');
+    //console.log('UICompGivePayment : handleRequestCloseCategorySelect : ');
     this.setState({ui:{popupCategory:false}});
   }
   handleRequestClosePaidToSelect = event => {
-    console.log('UICompGivePayment : handleRequestClosePaidToSelect : ');
+    //console.log('UICompGivePayment : handleRequestClosePaidToSelect : ');
     this.setState({ui:{popupPaidTo:false}});
   }
   handleRequestClose(event){
-    console.log('UICompGivePayment : handleRequestClose : ');
+    //console.log('UICompGivePayment : handleRequestClose : ');
   } 
   // ====== End == EventHandlers
   // === Callback ===
   onItemSelectedFromPopup_category = (itemID) => {
-    console.log('================================')
-    console.log('onItemSelectedFromPopup_category : ',itemID)
-    console.log('================================')
+    //console.log('================================')
+    //console.log('onItemSelectedFromPopup_category : ',itemID)
+    //console.log('================================')
     this.state.projectValue = itemID
     return false
   }
   onItemSelectedFromPopup_paidTo = (itemID) => {
-    console.log('================================')
-    console.log('onItemSelectedFromPopup_paidTo : ',itemID)
-    console.log('================================')
+    //console.log('================================')
+    //console.log('onItemSelectedFromPopup_paidTo : ',itemID)
+    //console.log('================================')
     this.state.personValue = itemID;
     return false
   }

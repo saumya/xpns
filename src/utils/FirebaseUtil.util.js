@@ -15,7 +15,7 @@ class FirebaseUtil {
   // Static functions
   // Basically functions :) YEAH.
   static getFirebaseAppData(firebaseApp,googleUserId){
-    console.log('FirebaseUtil.util:getFirebaseAppData:');
+    //console.log('FirebaseUtil.util:getFirebaseAppData:');
     var result = null;
     //
     const firebaseDB = firebaseApp.database();
@@ -46,7 +46,7 @@ class FirebaseUtil {
     newProjectRef.set({projectName:newProjectName}).then(function(){
       callbackObj.callBack.call(callbackObj.scope, newProjectName+" Added as a Category")
     },function(error){
-      console.log('Error : ',error)
+      //console.log('Error : ',error)
     });
   }
   static deleteCategory(firebaseApp, dbPath, callbackObj){
@@ -68,7 +68,7 @@ class FirebaseUtil {
     newPersonRef.set({personName:newPersonName}).then(function(){
       callbackObj.callBack.call(callbackObj.scope, newPersonName+" Added as a PaidTo/ReceivedFrom")
     },function(error){
-      console.log('Error : ',error)
+      //console.log('Error : ',error)
     })
   }
   static deletePaidTo(firebaseApp, dbPath, callbackObj){
@@ -84,7 +84,7 @@ class FirebaseUtil {
   }
 
   static addNewExpense(firebaseApp, dbPath, expenseObj, callbackObj){
-    console.log('addNewExpense :',expenseObj)
+    //console.log('addNewExpense :',expenseObj)
     //console.log('expenseObj',expenseObj)
     var databaseRef = firebaseApp.database().ref(dbPath);
     var newPaidRef = databaseRef.push()
@@ -94,11 +94,11 @@ class FirebaseUtil {
       var msg = (' Expense Entry Added.');
       callbackObj.callBack.call( callbackObj.scope, msg )
     },function(error){
-      console.log('ERROR',error)
+      //console.log('ERROR',error)
     })
   }
   static addNewEarning(firebaseApp, dbPath, earningObj, callbackObj){
-    console.log('addNewEarning :',earningObj)
+    //console.log('addNewEarning :',earningObj)
     var databaseRef = firebaseApp.database().ref(dbPath)
     var newPaidRef = databaseRef.push()
     //newPaidRef.set(earningObj)
@@ -107,7 +107,7 @@ class FirebaseUtil {
       var msg = (' Income Entry Added.');
       callbackObj.callBack.call( callbackObj.scope, msg )
     }, function(error){
-      console.log('ERROR',error)
+      //console.log('ERROR',error)
     });
   }
 
@@ -207,7 +207,7 @@ class FirebaseUtil {
     return {filteredArray,filteredTotal}
   }
   static filterByMonth(aData,monthValue){
-    console.log('filterByMonth')
+    //console.log('filterByMonth')
     //console.log('monthValue',monthValue)
 
     var filteredArray = []
