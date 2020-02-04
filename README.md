@@ -1,6 +1,7 @@
 ## Xpns ( 0.4.0 )
 
 The expense tracking app. [First Version][ref1] is here.
+This is a work in progress to transition the ReactJS version.
 
 
 
